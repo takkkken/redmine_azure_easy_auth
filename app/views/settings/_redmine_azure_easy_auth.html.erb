@@ -1,0 +1,28 @@
+<h3>🔍 Azure Easy Auth ヘッダーの中身1</h3>
+
+<% header = request.env['HTTP_X_MS_CLIENT_PRINCIPAL'] %>
+<% if header.present? %>
+  <p>Base64 エンコードされた Principal ヘッダー：</p>
+  <pre><%= header %></pre>
+
+  <% begin %>
+    <% decoded = JSON.parse(Base64.decode64(header)) rescue nil %>
+    <% if decoded %>
+      <p>↓ デコードして JSON を整形表示：</p>
+      <pre><%= JSON.pretty_generate(decoded) %></pre>
+    <% else %>
+      <p>（ヘッダーのデコードに失敗しました）</p>
+    <% end %>
+  <% rescue %>
+    <p>（デコード中にエラーが発生しました）</p>
+  <% end %>
+<% else %>
+  <p><em>リクエストに X-MS-CLIENT-PRINCIPAL ヘッダーが見つかりません。</em></p>
+<% end %>
+
+<hr>
+<p>※ この画面を表示したときに Azure Easy Auth が正しくヘッダーを注入していれば、上に値が出ます。</p>
+
+<!-- ...existing code... -->
+<hr>
+<!-- ...existing code... -->
