@@ -1,3 +1,0 @@
-= redmine_azure_easyauth
-
-Description goes here
